@@ -8,6 +8,46 @@ from apiclient.errors import HttpError
 from oauth2client.client import SignedJwtAssertionCredentials
 from oauth2client.client import AccessTokenRefreshError
 
+class IterableReply:
+	def __init__(self, jobCollection, jobReference):
+		self.jc = jobCollection
+		self.jr = jobReference
+		self.currentRow = 0
+		self.currentBase = 0
+		self.reply = self.getReply()
+		
+	def getReply(self):
+		 q = self.jc.getQueryResults(
+						projectId=self.jr['projectId'],
+						jobId=self.jr['jobId'],
+						startIndex=self.currentBase + self.currentRow).execute()
+		 if 'rows' not in q:
+			 self.data = []
+		 else:
+			 self.data = q["rows"]
+		 self.currentBase += self.currentRow
+		 self.currentRow = 0
+		 return q
+
+	def __iter__(self):	
+		return self
+
+	def next(self):
+		if len(self.data) == 0:
+			raise StopIteration
+		if ('rows' in self.reply and self.currentRow + self.currentBase < self.reply['totalRows']):
+			if self.currentRow == len(self.data):
+				self.query = self.getReply()
+				if len(self.data) == 0:
+					raise StopIteration
+			row = self.data[self.currentRow]
+			rowVal = []
+			for cell in row['f']:
+				rowVal.append(cell['v'])
+			self.currentRow += 1
+			return rowVal
+		else:
+			raise StopIteration
 
 class SimpleClient:
 	def __init__(self):
@@ -44,37 +84,10 @@ class SimpleClient:
 
 		# Timeout exceeded: keep polling until the job is complete.
 		while(not queryReply['jobComplete']):
-		  print 'Job not yet complete...'
-		  queryReply = jobCollection.getQueryResults(
-				              projectId=jobReference['projectId'],
-				              jobId=jobReference['jobId'],
-				              timeoutMs=timeout).execute()
-
-		# If the result has rows, print the rows in the reply.
-		if('rows' in queryReply):
-		  print 'has a rows attribute'
-		  printTableData(queryReply, 0)
-		  currentRow = len(queryReply['rows'])
-
-		  # Loop through each page of data
-		  while('rows' in queryReply and currentRow < queryReply['totalRows']):
+			print 'Job not yet complete...'
 			queryReply = jobCollection.getQueryResults(
 				              projectId=jobReference['projectId'],
 				              jobId=jobReference['jobId'],
-				              startIndex=currentRow).execute()
-			if('rows' in queryReply):
-			  printTableData(queryReply, currentRow)
-			  currentRow += len(queryReply['rows'])
-
-
-
-
-def printTableData(data, startIndex):
-  for row in data['rows']:
-    rowVal = []
-    for cell in row['f']:
-        rowVal.append(cell['v'])
-    print 'Row %d: %s' % (startIndex, rowVal)
-    startIndex +=1
-
+				              timeoutMs=timeout).execute()
+		return IterableReply(jobCollection, jobReference)
 

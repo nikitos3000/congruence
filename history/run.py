@@ -7,7 +7,8 @@ WHERE payload_pull_request_base_user_login='{}'
 GROUP BY payload_pull_request_head_repo_clone_url;"""
 
 sc = utils.SimpleClient()
-sc.runSyncQuery(query.format('kevinsawicki'))
+for x in  sc.runSyncQuery(query.format('taylorotwell')):
+	print x 
 
 
 
