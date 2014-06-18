@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import httplib2
+import sys
 
 from apiclient.discovery import build
 from apiclient.errors import HttpError
@@ -72,7 +73,6 @@ class SimpleClient:
 	def runSyncQuery (self, query, timeout=0):
 		projectId = self.PROJECT_ID
 		service = self.service
-		print 'timeout:%d' % timeout
 		jobCollection = service.jobs()
 		queryData = {'query':query,
 				     'timeoutMs':timeout}
@@ -84,10 +84,12 @@ class SimpleClient:
 
 		# Timeout exceeded: keep polling until the job is complete.
 		while(not queryReply['jobComplete']):
-			print 'Job not yet complete...'
+			sys.stdout.write(".")
+			sys.stdout.flush()
 			queryReply = jobCollection.getQueryResults(
 				              projectId=jobReference['projectId'],
 				              jobId=jobReference['jobId'],
 				              timeoutMs=timeout).execute()
+		sys.stdout.write("\n")
 		return IterableReply(jobCollection, jobReference)
 
