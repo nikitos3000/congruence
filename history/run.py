@@ -1,6 +1,17 @@
 #!/usr/bin/python
 import utils
 import sys
+from github import Github
+g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
+repo = g.get_repo("jessepollak/card") #https://github.com/CocoaPods/Specs
+users = []
+for u in repo.get_contributors():
+	users.append(u.login)
+	print u.login
+
+
+
+
 
 query = """
 SELECT repository_url
@@ -10,7 +21,7 @@ GROUP BY repository_url
 IGNORE CASE;"""
 
 #users = ['kevinsawicki','jdalton','substack', 'mikermcneil', 'jonathanong', 'michalbe', 'balupton']
-users = ['irrationalfab', 'youknowone', 'siuying', 'Keithbsmiley', 'mattt','seivan','romaonthego']
+#users = ['michaelklishin','irrationalfab', 'youknowone', 'siuying', 'Keithbsmiley', 'mattt','seivan','romaonthego']
 user_repos = {}
 
 sc = utils.SimpleClient()
