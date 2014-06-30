@@ -1,0 +1,110 @@
+## List all files in clash repo for the latest commit in master
+## Build filepath-to-number index
+0 	.gitignore
+1 	README.md
+2 	discuss.json
+3 	discuss/__init__.py
+4 	discuss/admin.py
+5 	discuss/models.py
+6 	discuss/static/css/base.css
+7 	discuss/static/css/bootstrap-theme.min.css
+8 	discuss/static/css/bootstrap.min.css
+9 	discuss/static/fonts/glyphicons-halflings-regular.eot
+10 	discuss/static/fonts/glyphicons-halflings-regular.svg
+11 	discuss/static/fonts/glyphicons-halflings-regular.ttf
+12 	discuss/static/fonts/glyphicons-halflings-regular.woff
+13 	discuss/static/img/giraffe.svg
+14 	discuss/static/img/logo.svg
+15 	discuss/static/img/owl.svg
+16 	discuss/static/img/parrot.svg
+17 	discuss/static/img/textA.svg
+18 	discuss/static/img/tiger.svg
+19 	discuss/static/js/articlecheck.js
+20 	discuss/static/js/articleselect.js
+21 	discuss/static/js/bootstrap.min.js
+22 	discuss/static/js/comments.js
+23 	discuss/static/js/contextcheck.js
+24 	discuss/static/js/jquery-1.10.2.min.js
+25 	discuss/static/js/jquery-1.10.2.min.map
+26 	discuss/static/js/jquery.cookie.js
+27 	discuss/static/js/situationalcheck.js
+28 	discuss/static/js/svgcolor.js
+29 	discuss/static/js/waiting.js
+30 	discuss/templates/discuss/articleselection.html
+31 	discuss/templates/discuss/base.html
+32 	discuss/templates/discuss/check.xml
+33 	discuss/templates/discuss/comments.xml
+34 	discuss/templates/discuss/discussionarticles.html
+35 	discuss/templates/discuss/discussionbase.html
+36 	discuss/templates/discuss/discussioncontext.html
+37 	discuss/templates/discuss/discussionfree.html
+38 	discuss/templates/discuss/discussionposition.html
+39 	discuss/templates/discuss/discussionsituational.html
+40 	discuss/templates/discuss/index.html
+41 	discuss/templates/discuss/login.html
+42 	discuss/templates/discuss/register.html
+43 	discuss/templates/discuss/startdiscuss.html
+44 	discuss/tests.py
+45 	discuss/urls.py
+46 	discuss/views.py
+47 	manage.py
+48 	socialwebapp/__init__.py
+49 	socialwebapp/db/discuss.db
+50 	socialwebapp/settings.py
+51 	socialwebapp/urls.py
+52 	socialwebapp/wsgi.py
+## Build requirements matrix
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   1   0   4   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   2   1   1   1   0   1   1   1   1   1   1   2   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   2   1   1   1   4   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   3   2   1   1   1   2   3   3   3   3   2   1   1   2   1   2   3   1   1   4   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   2   1   1   1   1   1   2   2   2   2   1   1   0   2   1   1   2   1   1   2   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   3   2   1   1   1   2   1   1   2   1   1   1   1   1   2   2   2   2   1   1   0   2   1   1   3   1   1   3   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   2   1   1   1   1   1   2   2   2   2   1   1   0   2   1   1   2   1   1   2   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   2   1   1   1   1   1   2   2   2   2   1   1   0   2   1   1   2   1   1   2   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   2   1   1   1   3   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   3   1   1   1   1   1   2   2   3   2   1   1   0   2   1   1   2   1   1   3   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   1   2   2   2   1   2   2   1   1   1   1   2   2   1   1   2   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   1   2   2   2   1   2   2   1   1   1   1   2   2   1   1   2   1   1   1
+   1   0   1   1   1   1   3   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   2   2   1   1   1   2   3   3   2   3   2   1   1   2   1   2   3   1   1   3   1   1   1
+   1   0   1   1   1   1   3   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   2   2   1   1   1   2   3   3   2   3   2   1   1   2   1   2   3   1   1   3   1   1   1
+   1   0   2   1   1   1   3   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   3   1   1   1   1   1   2   2   3   2   1   1   0   2   1   1   2   1   1   3   1   1   1
+   1   0   1   1   1   1   3   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   2   2   1   1   1   2   3   3   2   3   2   1   1   2   1   2   3   1   1   3   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   1   2   2   2   1   2   3   1   1   1   1   2   2   1   1   2   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   1   1   1   0   1   1   0   1   0   0   1   1   0   0   1   0   0   0
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   2   1   1   1   2   1   1   2   1   1   1   1   1   2   2   2   2   1   1   0   2   1   1   2   1   1   2   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   1   2   2   2   1   2   2   1   1   1   1   2   2   1   1   2   1   1   1
+   1   0   1   1   1   1   3   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   3   2   1   1   1   2   1   1   2   2   1   1   1   2   3   3   2   3   2   1   1   2   1   2   4   1   1   4   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   2   1   1   1   4   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   3   2   1   1   1   2   1   1   3   2   1   1   1   2   3   3   3   3   2   1   1   2   1   2   4   1   1   5   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   0   1   1   1   1   1   1   1   1   1   1
+Rate limit: (4933, 5000)

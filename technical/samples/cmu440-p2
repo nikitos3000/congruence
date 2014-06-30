@@ -1,0 +1,87 @@
+## List all files in p2 repo for the latest commit in master
+## Build filepath-to-number index
+0 	.gitignore
+1 	README.md
+2 	bin/.gitignore
+3 	p2.pdf
+4 	pkg/.gitignore
+5 	sols/darwin_amd64/crunner
+6 	sols/darwin_amd64/lrunner
+7 	sols/darwin_amd64/srunner
+8 	sols/darwin_amd64/trunner
+9 	sols/linux_amd64/crunner
+10 	sols/linux_amd64/lrunner
+11 	sols/linux_amd64/srunner
+12 	sols/linux_amd64/trunner
+13 	src/github.com/cmu440/tribbler/libstore/libstore_api.go
+14 	src/github.com/cmu440/tribbler/libstore/libstore_impl.go
+15 	src/github.com/cmu440/tribbler/rpc/librpc/rpc.go
+16 	src/github.com/cmu440/tribbler/rpc/storagerpc/proto.go
+17 	src/github.com/cmu440/tribbler/rpc/storagerpc/rpc.go
+18 	src/github.com/cmu440/tribbler/rpc/tribrpc/proto.go
+19 	src/github.com/cmu440/tribbler/rpc/tribrpc/rpc.go
+20 	src/github.com/cmu440/tribbler/runners/crunner/crunner.go
+21 	src/github.com/cmu440/tribbler/runners/lrunner/lrunner.go
+22 	src/github.com/cmu440/tribbler/runners/srunner/srunner.go
+23 	src/github.com/cmu440/tribbler/runners/trunner/trunner.go
+24 	src/github.com/cmu440/tribbler/storageserver/storageserver_api.go
+25 	src/github.com/cmu440/tribbler/storageserver/storageserver_impl.go
+26 	src/github.com/cmu440/tribbler/tests/libtest/libtest.go
+27 	src/github.com/cmu440/tribbler/tests/proxycounter/proxycounter.go
+28 	src/github.com/cmu440/tribbler/tests/storagetest/storagetest.go
+29 	src/github.com/cmu440/tribbler/tests/stresstest/stresstest.go
+30 	src/github.com/cmu440/tribbler/tests/tribtest/tribtest.go
+31 	src/github.com/cmu440/tribbler/tribclient/tribclient_api.go
+32 	src/github.com/cmu440/tribbler/tribclient/tribclient_impl.go
+33 	src/github.com/cmu440/tribbler/tribserver/tribserver_api.go
+34 	src/github.com/cmu440/tribbler/tribserver/tribserver_impl.go
+35 	tests/libtest.sh
+36 	tests/libtest2.sh
+37 	tests/runall.sh
+38 	tests/storagetest.sh
+39 	tests/storagetest2.sh
+40 	tests/stresstest.sh
+41 	tests/tribtest.sh
+## Build requirements matrix
+   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0  14   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   2   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   7   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   1   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   4   4   4   4   2   2   2   2   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   4   4   4   4   2   2   2   2   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   4   4   4   4   2   2   2   2   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   4   4   4   5   2   2   2   2   0   0   0   0   0   0   1   0   0   0   1   0   0   1   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   2   2   2   2   3   3   3   3   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   2   2   2   2   3   3   3   3   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   2   2   2   2   3   3   3   3   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   0   0   2   2   2   2   3   3   3   4   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+   0   0   0   1   0   0   0   0   0   0   0   0   0   2   1   1   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   1   0   0   0   0   1   1   1   1   1   1   3   1   1   1   2   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   1   0   0   0   0   1   1   1   1   1   1   2   1   1   1   2   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   2   1   1   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   7   1   3   2   3   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   3   1   3   2   3   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   2   8   2   1   1   1   1   1   1   1   1   1   2   1
+   0   0   0   1   0   0   0   0   1   0   0   0   0   1   1   1   1   1   1   2   1   1   1   2   1   1   3   1   3   2   4   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   2   1   1   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   2   1   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   1   1   1   1   1   1   1   1   3   1
+   0   0   0   1   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
