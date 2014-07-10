@@ -19,30 +19,35 @@ def list_files(repo):
 	process_tree(root, '')
 	return files
 
-def build_matrix(repo, fileindex):
+def build_matrix(repo , fileindex):
 	l = len(fileindex)
 	matrix = [[0]*l for i in range(l)]
 	commits = defaultdict(list)
+	peopleindex  = [] 
+	commit2author = {} 
 	for path,idx in fileindex.iteritems():
 		for c in repo.get_commits(path=path):
 			commits[c.sha].append(idx)
-	for items in commits.values():
+			if c.author is None:
+				sys.stderr.write(
+					"{}@{} has no author\n".format(path, c.sha))
+				continue
+			commit2author[c.sha] = c.author.login
+	peoplelist = list(set(commit2author.values()))
+	peopleindex = {author:idx for idx, author in enumerate(peoplelist)} 
+	for idx, author in enumerate(peoplelist): 
+		print idx, "\t", author
+	n = len(peopleindex)
+	# people2file[i][j] for person i and file j
+	people2file = [[0]*l for i in range(n)]
+	for sha, items in commits.iteritems():
 		for i in items:
 			for j in items:
-				matrix[i][j] += 1  
-
-	return matrix
-	latest = repo.get_branch('master').commit
-	def process_commit(current):
-		idxs = [fileindex[f.filename] for f in current.files]
-		for i in idxs:
-			for j in idxs:
-				matrix[i][j]+=1
-		print current.sha, idxs
-		for c in current.parents:
-			process_commit(c)
-	process_commit(latest)
-	return matrix
+				matrix[i][j] +=  1
+			if sha in commit2author:
+				author_idx = peopleindex[commit2author[sha]]
+				people2file[author_idx][i] += 1
+	return matrix, people2file
 
 def main():
 	g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
@@ -55,9 +60,13 @@ def main():
 	fileindex = {path: idx for idx, path in enumerate(filelist)}
 	for idx, path in enumerate(filelist):
 		print idx, "\t", path
-	print "## Build requirements matrix"
-	matrix = build_matrix(repo, fileindex)
+	print "## Iterating over files and commits. Please wait." 
+	matrix, people2file = build_matrix(repo, fileindex)
+	print "## Requirements matrix: files to files"
 	for row in matrix:
+		print ''.join('%4s' % i for i in row)
+	print "## Authors to files matrix"
+	for row in people2file:
 		print ''.join('%4s' % i for i in row)
 	sys.stderr.write('Rate limit: {}'.format(g.rate_limiting))
 main()
