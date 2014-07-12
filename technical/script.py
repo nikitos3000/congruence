@@ -2,7 +2,22 @@
 from github import Github
 from collections import defaultdict
 import sys
+import json
 
+
+# Naive matrix mul
+# numpy is intentionally not used here
+def matmult(a,b):
+	zip_b = zip(*b)
+	return [[sum(ele_a*ele_b for ele_a, ele_b in zip(row_a, col_b)) 
+			     for col_b in zip_b] for row_a in a]
+
+# Naive matrix trans
+# numpy is intentionally not used here
+def trans(m):
+	height = len(m)
+	width = len(m[0])
+	return [[ m[row][col] for row in range(0,height) ] for col in range(0,width) ]
 
 def list_files(repo):
 	master = repo.get_branch('master')
@@ -47,7 +62,7 @@ def build_matrix(repo , fileindex):
 			if sha in commit2author:
 				author_idx = peopleindex[commit2author[sha]]
 				people2file[author_idx][i] += 1
-	return matrix, people2file
+	return matrix, people2file, peoplelist
 
 def main():
 	g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
@@ -61,13 +76,27 @@ def main():
 	for idx, path in enumerate(filelist):
 		print idx, "\t", path
 	print "## Iterating over files and commits. Please wait." 
-	matrix, people2file = build_matrix(repo, fileindex)
+	matrix, people2file, peoplelist = build_matrix(repo, fileindex)
 	print "## Requirements matrix: files to files"
 	for row in matrix:
 		print ''.join('%4s' % i for i in row)
 	print "## Authors to files matrix"
 	for row in people2file:
 		print ''.join('%4s' % i for i in row)
-	sys.stderr.write('Rate limit: {}'.format(g.rate_limiting))
+	sys.stderr.write('Rate limit: {}\n'.format(g.rate_limiting))
+	print "## Calculating requirement natrix and writing results to file"
+	# requirements = p2f * f2f * f*p
+	result = matmult(people2file, matmult(matrix, trans(people2file)))
+	print result
+	data = {}
+	data["files"] = filelist
+	data["people"] = peoplelist
+	data["people2files"] = people2file
+	data["files2files"] = matrix
+	data["requirements"] = result
+	filename = "output_data/" + sys.argv[1].replace("/","-")
+	with open(filename, 'w+') as f:
+		json.dump(data, f)
+	print "## Results written to {}".format(filename)
 main()
 
