@@ -2,8 +2,11 @@
 import utils
 import sys
 from github import Github
+from collections import defaultdict
+import cache
+
 g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
-repo = g.get_repo("xoxco/jQuery-Tags-Input") #https://github.com/CocoaPods/Specs
+repo = g.get_repo(sys.argv[1]) #https://github.com/CocoaPods/Specs
 users = []
 for u in repo.get_contributors():
 	users.append(u.login)
@@ -12,31 +15,33 @@ for u in repo.get_contributors():
 
 
 
-
-query = """
-SELECT repository_url
+QUERY = """
+SELECT repository_url, actor_attributes_login
 FROM [githubarchive:github.timeline]
-WHERE (type="PushEvent" OR type="PullRequestEvent" OR type="MemberEvent") AND actor_attributes_login="{}"
-GROUP BY repository_url
-IGNORE CASE;"""
-
-#users = ['kevinsawicki','jdalton','substack', 'mikermcneil', 'jonathanong', 'michalbe', 'balupton']
+WHERE type IN ("PushEvent", "PullRequestEvent", "MemberEvent") AND actor_attributes_login in ({})
+GROUP BY repository_url, actor_attributes_login
+IGNORE CASE;
+"""
 #users = ['michaelklishin','irrationalfab', 'youknowone', 'siuying', 'Keithbsmiley', 'mattt','seivan','romaonthego']
-user_repos = {}
+user_repos = defaultdict(list) 
+# Trying to lookup in cache
+newusers = cache.lookup(users, user_repos)
+print "{} users found in cache".format(len(users) - len(newusers))
 
 sc = utils.SimpleClient()
-for user in users:
-	repos = set()
-	for x in  sc.runSyncQuery(query.format(user)):
+query = QUERY.format(','.join(["'{}'".format(x) for x in newusers]))
+repos = set()
+if len(newusers) != 0 :
+	for x in  sc.runSyncQuery(query):
 		repos.add(x[0])
-	user_repos[user] = repos
+		user_repos[x[1]].append(x[0])
+	# Store users in cache
+	cache.store(user_repos)
 
 
 def measure_history(u1, u2):
-	return len(u1.intersection(u2))
+	return len(set(u1).intersection(set(u2)))
 	
-
-
 sys.stdout.write("{}\t".format(' '.ljust(10)))
 for u in users:
 	sys.stdout.write("| {} ".format(u.ljust(5)[:5]))
