@@ -4,9 +4,10 @@ import sys
 from github import Github
 from collections import defaultdict
 import cache
+import json
 
 g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
-repo = g.get_repo(sys.argv[1]) #https://github.com/CocoaPods/Specs
+repo = g.get_repo(sys.argv[1]) 
 users = []
 for u in repo.get_contributors():
 	users.append(u.login)
@@ -22,7 +23,6 @@ WHERE type IN ("PushEvent", "PullRequestEvent", "MemberEvent") AND actor_attribu
 GROUP BY repository_url, actor_attributes_login
 IGNORE CASE;
 """
-#users = ['michaelklishin','irrationalfab', 'youknowone', 'siuying', 'Keithbsmiley', 'mattt','seivan','romaonthego']
 user_repos = defaultdict(list) 
 # Trying to lookup in cache
 newusers = cache.lookup(users, user_repos)
@@ -46,11 +46,23 @@ sys.stdout.write("{}\t".format(' '.ljust(10)))
 for u in users:
 	sys.stdout.write("| {} ".format(u.ljust(5)[:5]))
 sys.stdout.write("\n")
-for u1 in users:
+data = {}
+data["users"] = users
+data["repos"] = user_repos
+data["timestamp"] = cache.timestamp()
+l = len(users)
+matrix = [[0]*l for i in range(l)]
+
+for i, u1 in enumerate(users):
 	sys.stdout.write("{}\t".format(u1.ljust(10)))
-	for u2 in users:
+	for j, u2 in enumerate(users):
 		r1 = user_repos[u1]
 		r2 = user_repos[u2]
 		m = measure_history(r1,r2)
+		matrix[i][j] = m
 		sys.stdout.write("| {}\t".format(m))
 	sys.stdout.write("\n")
+data["matrix"] = matrix
+with open("output_data/" + sys.argv[1].replace("/","-"), 'w+') as f:
+	json.dump(data, f)
+
