@@ -1,0 +1,1 @@
+{"repos": ["https://github.com/ceph/ceph-client", "https://github.com/ceph/ceph", "https://github.com/ceph/ceph-qa-suite", "https://github.com/ceph/teuthology", "https://github.com/ceph/ceph-qa-chef", "https://github.com/ceph/autobuild-ceph"], "login": "alexelder", "time": "2014-07-11 21:14:20"}
