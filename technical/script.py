@@ -36,16 +36,25 @@ def list_files(repo):
 
 def build_matrix(repo , fileindex):
 	l = len(fileindex)
-	matrix = [[0]*l for i in range(l)]
+	# files changed within the same commit
+	files2files = [[0]*l for i in range(l)]
+	# list of files changed in the commit
 	commits = defaultdict(list)
-	peopleindex  = [] 
+	# list of people commented this commit
+	comments = defaultdict(set)
+	# list of people
+	peopleindex  = []
+	# commit to author mapping
 	commit2author = {} 
+	# for each file in the repo
+	# iterate over its history commits
 	for path,idx in fileindex.iteritems():
 		for c in repo.get_commits(path=path):
+			for comm in c.get_comments():
+				comments[c.sha].add(comm.user.login)
 			commits[c.sha].append(idx)
 			if c.author is None:
-				sys.stderr.write(
-					"{}@{} has no author\n".format(path, c.sha))
+				sys.stderr.write("{}@{} has no author\n".format(path, c.sha))
 				continue
 			commit2author[c.sha] = c.author.login
 	peoplelist = list(set(commit2author.values()))
@@ -58,11 +67,22 @@ def build_matrix(repo , fileindex):
 	for sha, items in commits.iteritems():
 		for i in items:
 			for j in items:
-				matrix[i][j] +=  1
+				files2files[i][j] +=  1
 			if sha in commit2author:
 				author_idx = peopleindex[commit2author[sha]]
 				people2file[author_idx][i] += 1
-	return matrix, people2file, peoplelist
+	# comments_matrix[i][j] = counter 
+	# means:
+	# person i has interacted with person j counter times
+	comments_matrix = [[0]*n for i in range(n)]
+	for sha, people in comments.iteritems():
+		for dev1 in people:
+			i = peopleindex[dev1]
+			for dev2 in people:
+				j = peopleindex[dev2]
+				comments_matrix[i][j] += 1
+
+	return files2files, people2file, peoplelist, comments_matrix
 
 def main():
 	g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
@@ -76,7 +96,7 @@ def main():
 	for idx, path in enumerate(filelist):
 		print idx, "\t", path
 	print "## Iterating over files and commits. Please wait." 
-	matrix, people2file, peoplelist = build_matrix(repo, fileindex)
+	matrix, people2file, peoplelist, comments_matrix  = build_matrix(repo, fileindex)
 	print "## Requirements matrix: files to files"
 	for row in matrix:
 		print ''.join('%4s' % i for i in row)
@@ -84,16 +104,22 @@ def main():
 	for row in people2file:
 		print ''.join('%4s' % i for i in row)
 	sys.stderr.write('Rate limit: {}\n'.format(g.rate_limiting))
+	print "## Comments interaction" 
+	for row in comments_matrix:
+		print ''.join('%4s' % i for i in row)
 	print "## Calculating requirement natrix and writing results to file"
 	# requirements = p2f * f2f * f*p
 	result = matmult(people2file, matmult(matrix, trans(people2file)))
-	print result
+	for row in result:
+		print ''.join('%6s' % i for i in row)
+	## Writing everything to json
 	data = {}
 	data["files"] = filelist
 	data["people"] = peoplelist
 	data["people2files"] = people2file
 	data["files2files"] = matrix
 	data["requirements"] = result
+	data["comments_matrix"] = comments_matrix
 	filename = "output_data/" + sys.argv[1].replace("/","-")
 	with open(filename, 'w+') as f:
 		json.dump(data, f)
