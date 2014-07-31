@@ -33,6 +33,26 @@ def list_files(repo):
 				files.append(prefix + n.path)
 	process_tree(root, '')
 	return files
+def collect_comments(repo, matrix, peoplelist):
+	idx = {author:id for id, author in enumerate(peoplelist)}
+	def process(comments):
+		users = set()
+		for c in comments: 
+			login = c.user.login
+			if login in idx:
+				users.add(idx[login])
+			else: print("Who's this guy: " + login)
+		for i in users:
+			for j in users:
+				matrix[i][j] += 1
+	
+	#iterate pull requests
+	for pull in repo.get_pulls():
+		process(pull.get_comments())
+	#iterate comments
+	for issue in repo.get_issues():
+		process(issue.get_comments())
+	return matrix
 
 def build_matrix(repo , fileindex):
 	l = len(fileindex)
@@ -97,6 +117,8 @@ def main():
 		print idx, "\t", path
 	print "## Iterating over files and commits. Please wait." 
 	matrix, people2file, peoplelist, comments_matrix  = build_matrix(repo, fileindex)
+	print "## Collecting comments."
+	comments_matrix = collect_comments(repo, comments_matrix, peoplelist)
 	print "## Requirements matrix: files to files"
 	for row in matrix:
 		print ''.join('%4s' % i for i in row)
