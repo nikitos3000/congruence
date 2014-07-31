@@ -3,6 +3,27 @@ from github import Github
 from collections import defaultdict
 import sys
 import json
+import time
+from datetime import datetime as dt 
+
+gh = None
+
+def check():
+	global gh
+	gh.get_rate_limit()
+	rate = gh.rate_limiting
+	if rate[0] > 100: return
+	reset = gh.rate_limiting_resettime 
+	t = dt.fromtimestamp(reset).strftime('%Y-%m-%d %H:%M:%S')
+	sys.stdout.write("\nOut of limits. [{}] Waiting".format(t)) 
+	while (True):
+		sys.stdout.flush()
+		gh.get_rate_limit()
+		rate = gh.rate_limiting
+		if rate[0] > 100: break
+		time.sleep(60)
+		sys.stdout.write(".")
+	sys.stdout.write("\n")
 
 
 # Naive matrix mul
@@ -25,6 +46,7 @@ def list_files(repo):
 	files = []
 	def process_tree(node, prefix):
 		for n in node.tree:
+			check()
 			if n.type == 'tree':
 				path = '{}{}/'.format(prefix, n.path)
 				subnode = repo.get_git_tree(n.sha)
@@ -33,11 +55,13 @@ def list_files(repo):
 				files.append(prefix + n.path)
 	process_tree(root, '')
 	return files
+
 def collect_comments(repo, matrix, peoplelist):
 	idx = {author:id for id, author in enumerate(peoplelist)}
 	def process(comments):
 		users = set()
 		for c in comments: 
+			check()
 			login = c.user.login
 			if login in idx:
 				users.add(idx[login])
@@ -48,9 +72,11 @@ def collect_comments(repo, matrix, peoplelist):
 	
 	#iterate pull requests
 	for pull in repo.get_pulls():
+		check()
 		process(pull.get_comments())
 	#iterate comments
 	for issue in repo.get_issues():
+		check()
 		process(issue.get_comments())
 	return matrix
 
@@ -71,6 +97,7 @@ def build_matrix(repo , fileindex):
 	for path,idx in fileindex.iteritems():
 		for c in repo.get_commits(path=path):
 			for comm in c.get_comments():
+				check()
 				comments[c.sha].add(comm.user.login)
 			commits[c.sha].append(idx)
 			if c.author is None:
@@ -106,18 +133,25 @@ def build_matrix(repo , fileindex):
 
 def main():
 	g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
+	global gh
+	gh = g
 	user_str, repo_str = sys.argv[1].split("/")
+	check()
 	u = g.get_user(user_str)
+	check()
 	repo = u.get_repo(repo_str)
 	print "## List all files in {} repo for the latest commit in master".format(repo_str)
+	check()
 	filelist = list_files(repo)
 	print "## Build filepath-to-number index"
 	fileindex = {path: idx for idx, path in enumerate(filelist)}
 	for idx, path in enumerate(filelist):
 		print idx, "\t", path
 	print "## Iterating over files and commits. Please wait." 
+	check()
 	matrix, people2file, peoplelist, comments_matrix  = build_matrix(repo, fileindex)
 	print "## Collecting comments."
+	check()
 	comments_matrix = collect_comments(repo, comments_matrix, peoplelist)
 	print "## Requirements matrix: files to files"
 	for row in matrix:
