@@ -96,10 +96,11 @@ def build_matrix(repo , fileindex):
 	# iterate over its history commits
 	for path,idx in fileindex.iteritems():
 		for c in repo.get_commits(path=path):
-			for comm in c.get_comments():
-				check()
-				comments[c.sha].add(comm.user.login)
-			commits[c.sha].append(idx)
+			check()
+			#for comm in c.get_comments():
+			#	check()
+			#	comments[c.sha].add(comm.user.login)
+			#commits[c.sha].append(idx)
 			if c.author is None:
 				sys.stderr.write("{}@{} has no author\n".format(path, c.sha))
 				continue

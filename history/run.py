@@ -8,6 +8,7 @@ import json
 
 g = Github(login_or_token='74ff4320f6b54cc4bf74dc4f006661a782e31418')
 repo = g.get_repo(sys.argv[1]) 
+print repo
 users = []
 for u in repo.get_contributors():
 	users.append(u.login)
@@ -63,6 +64,6 @@ for i, u1 in enumerate(users):
 		sys.stdout.write("| {}\t".format(m))
 	sys.stdout.write("\n")
 data["matrix"] = matrix
-with open("output_data/" + sys.argv[1].replace("/","-"), 'w+') as f:
+with open("output_data/" + sys.argv[1].replace("/","-") + ".json", 'w+') as f:
 	json.dump(data, f)
 
