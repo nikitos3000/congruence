@@ -146,8 +146,8 @@ def main():
 	filelist = list_files(repo)
 	print "## Build filepath-to-number index"
 	fileindex = {path: idx for idx, path in enumerate(filelist)}
-	for idx, path in enumerate(filelist):
-		print idx, "\t", path
+	#for idx, path in enumerate(filelist):
+	#	print idx, "\t", path
 	print "## Iterating over files and commits. Please wait." 
 	check()
 	matrix, people2file, peoplelist, comments_matrix  = build_matrix(repo, fileindex)
@@ -155,20 +155,20 @@ def main():
 	check()
 	comments_matrix = collect_comments(repo, comments_matrix, peoplelist)
 	print "## Requirements matrix: files to files"
-	for row in matrix:
-		print ''.join('%4s' % i for i in row)
+	#for row in matrix:
+	#	print ''.join('%4s' % i for i in row)
 	print "## Authors to files matrix"
-	for row in people2file:
-		print ''.join('%4s' % i for i in row)
-	sys.stderr.write('Rate limit: {}\n'.format(g.rate_limiting))
+	#for row in people2file:
+	#	print ''.join('%4s' % i for i in row)
+	#sys.stderr.write('Rate limit: {}\n'.format(g.rate_limiting))
 	print "## Comments interaction" 
-	for row in comments_matrix:
-		print ''.join('%4s' % i for i in row)
+	#for row in comments_matrix:
+	#	print ''.join('%4s' % i for i in row)
 	print "## Calculating requirement natrix and writing results to file"
 	# requirements = p2f * f2f * f*p
 	result = matmult(people2file, matmult(matrix, trans(people2file)))
-	for row in result:
-		print ''.join('%6s' % i for i in row)
+	#for row in result:
+	#	print ''.join('%6s' % i for i in row)
 	## Writing everything to json
 	data = {}
 	data["files"] = filelist

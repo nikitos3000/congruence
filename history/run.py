@@ -55,15 +55,16 @@ l = len(users)
 matrix = [[0]*l for i in range(l)]
 
 for i, u1 in enumerate(users):
-	sys.stdout.write("{}\t".format(u1.ljust(10)))
+	#sys.stdout.write("{}\t".format(u1.ljust(10)))
 	for j, u2 in enumerate(users):
 		r1 = user_repos[u1]
 		r2 = user_repos[u2]
 		m = measure_history(r1,r2)
 		matrix[i][j] = m
-		sys.stdout.write("| {}\t".format(m))
-	sys.stdout.write("\n")
+		#sys.stdout.write("| {}\t".format(m))
+	#sys.stdout.write("\n")
 data["matrix"] = matrix
+print "Done for ", repo
 with open("output_data/" + sys.argv[1].replace("/","-") + ".json", 'w+') as f:
 	json.dump(data, f)
 
