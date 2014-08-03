@@ -15,16 +15,15 @@ def check():
 	if rate[0] > 100: return
 	reset = gh.rate_limiting_resettime 
 	t = dt.fromtimestamp(reset).strftime('%Y-%m-%d %H:%M:%S')
-	sys.stdout.write("\nOut of limits. [{}] Waiting".format(t)) 
+	print "Out of limits. [{}] Waiting".format(t), 
 	while (True):
 		sys.stdout.flush()
 		gh.get_rate_limit()
 		rate = gh.rate_limiting
 		if rate[0] > 100: break
 		time.sleep(60)
-		sys.stdout.write(".")
-		sys.stdout.flush()
-	sys.stdout.write("\n")
+		print ".,"
+	print ""
 
 
 # Naive matrix mul
@@ -96,20 +95,21 @@ def build_matrix(repo , fileindex):
 	# for each file in the repo
 	# iterate over its history commits
 	for path,idx in fileindex.iteritems():
+		print "Processing: ", path,
 		for c in repo.get_commits(path=path):
+			print ".",
 			check()
 			#for comm in c.get_comments():
 			#	check()
 			#	comments[c.sha].add(comm.user.login)
-			#commits[c.sha].append(idx)
+			commits[c.sha].append(idx)
 			if c.author is None:
 				sys.stderr.write("{}@{} has no author\n".format(path, c.sha))
 				continue
 			commit2author[c.sha] = c.author.login
+		print ""
 	peoplelist = list(set(commit2author.values()))
 	peopleindex = {author:idx for idx, author in enumerate(peoplelist)} 
-	for idx, author in enumerate(peoplelist): 
-		print idx, "\t", author
 	n = len(peopleindex)
 	# people2file[i][j] for person i and file j
 	people2file = [[0]*l for i in range(n)]
@@ -149,8 +149,6 @@ def main():
 	filelist = list_files(repo)
 	print "## Build filepath-to-number index"
 	fileindex = {path: idx for idx, path in enumerate(filelist)}
-	#for idx, path in enumerate(filelist):
-	#	print idx, "\t", path
 	print "## Iterating over files and commits. Please wait." 
 	check()
 	matrix, people2file, peoplelist, comments_matrix  = build_matrix(repo, fileindex)
