@@ -23,6 +23,7 @@ def check():
 		if rate[0] > 100: break
 		time.sleep(60)
 		sys.stdout.write(".")
+		sys.stdout.flush()
 	sys.stdout.write("\n")
 
 
@@ -137,6 +138,8 @@ def main():
 	global gh
 	gh = g
 	user_str, repo_str = sys.argv[1].split("/")
+	print "---------------Processing: {}----------".format(sys.argv[1])
+	sys.stdout.flush()
 	check()
 	u = g.get_user(user_str)
 	check()
@@ -181,5 +184,6 @@ def main():
 	with open(filename, 'w+') as f:
 		json.dump(data, f)
 	print "## Results written to {}".format(filename)
+	sys.stdout.flush()
 main()
 
