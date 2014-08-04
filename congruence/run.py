@@ -48,7 +48,7 @@ def  transform(m, index, allowed):
 
 def main():
 	repos = []
-	HISTORY= "../history/output_data/{}.json"
+	HISTORY= "../history/output_data/{}"
 	ACTUAL = "../technical/output_data/{}"
 	with open(sys.argv[1]) as f:
 		repos = f.readlines()
