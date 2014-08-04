@@ -48,7 +48,7 @@ def  transform(m, index, allowed):
 
 def main():
 	repos = []
-	HISTORY= "../history/output_data/{}"
+	HISTORY= "../history/output_data/{}.json"
 	ACTUAL = "../technical/output_data/{}"
 	with open(sys.argv[1]) as f:
 		repos = f.readlines()
@@ -65,16 +65,18 @@ def main():
 			H = hjson["matrix"]	  	# historical
 			T = ajson["requirements"] 	# technical
 			E = ajson["comments_matrix"]		# explicit
-			print sparsity(H), sparsity(T), sparsity(E)
 			H = transform(H, hpeople, people)
 			T = transform(T, apeople, people)
 			E = transform(E, apeople, people)
 			print sparsity(H), sparsity(T), sparsity(E)
 			H2T = diff(H, T)
 			T2E = diff(T, E)
-			H2T_norm = math.sqrt(sum(i**2 for i in H2T))
-			T2E_norm = math.sqrt(sum(i**2 for i in T2E))
-			print "H2T", H2T_norm, "T2E", T2E_norm
+			for i in range(len(people)):
+				if 0  in [H2T[i], T2E[i]]: continue
+				print people[i], int(H2T[i]*100), int(T2E[i]*100)
+			#H2T_norm = math.sqrt(sum(i**2 for i in H2T))
+			#T2E_norm = math.sqrt(sum(i**2 for i in T2E))
+			#print "H2T", H2T_norm, "T2E", T2E_norm
 		except Exception as e:
 			print "Error with ", repo, ".", e
 
