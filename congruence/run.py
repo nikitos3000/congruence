@@ -3,6 +3,7 @@
 import sys
 import json
 import math
+from scipy.stats.stats import pearsonr
 
 def get_cosine(vec1, vec2):
 	n = len(vec1)
@@ -77,10 +78,8 @@ def main():
 		H = transform(H, hpeople, people)
 		T = transform(T, apeople, people)
 		E = transform(E, apeople, people)
-		#H2T = diff(flatten(H), flatten(T))
-		#T2E = diff(flatten(T), flatten(E))
-		H2T = get_cosine(flatten_upper_diagonal(H), flatten_upper_diagonal(T))	
-		T2E = get_cosine(flatten_upper_diagonal(T), flatten_upper_diagonal(E))
+		H2T = pearsonr(flatten(H), flatten(T))	
+		T2E = pearsonr(flatten(T), flatten(E))
 		#for i in range(len(people)):
 		#	if 0  in [H2T[i], T2E[i]]: continue
 		#	print people[i], int(H2T[i]*100), int(T2E[i]*100)
@@ -90,6 +89,6 @@ def main():
 			return float(sum(m))/len(m)
 		#H2T_norm = average(H2T)
 		#T2E_norm = average(T2E)
-		print ",".join([repo, str(H2T), str(T2E)])
+		print ",".join([repo, str(H2T[0]), str(T2E[0])])
 
 main()
