@@ -25,6 +25,14 @@ def diff(A,B):
 def flatten(x):
 	return [item for sublist in x for item in sublist]
 
+def flatten_upper_diagonal(x):
+	n = len(x)
+	result = []
+	for i in range(n):
+		for j in range(i+1, n):
+			result.append(x[i][j])
+	return result
+
 def sparsity(m):
 	l = len(m)
 	total = l*l
@@ -71,8 +79,8 @@ def main():
 		E = transform(E, apeople, people)
 		#H2T = diff(flatten(H), flatten(T))
 		#T2E = diff(flatten(T), flatten(E))
-		H2T = get_cosine(flatten(H), flatten(T))	
-		T2E = get_cosine(flatten(T), flatten(E))
+		H2T = get_cosine(flatten_upper_diagonal(H), flatten_upper_diagonal(T))	
+		T2E = get_cosine(flatten_upper_diagonal(T), flatten_upper_diagonal(E))
 		#for i in range(len(people)):
 		#	if 0  in [H2T[i], T2E[i]]: continue
 		#	print people[i], int(H2T[i]*100), int(T2E[i]*100)
