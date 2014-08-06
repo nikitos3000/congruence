@@ -22,6 +22,8 @@ def diff(A,B):
 	n = len(A) # they expected to be of the same length
 	return [get_cosine(A[i], B[i]) for i in range(n)]
 
+def flatten(x):
+	return [item for sublist in x for item in sublist]
 
 def sparsity(m):
 	l = len(m)
@@ -53,31 +55,33 @@ def main():
 	with open(sys.argv[1]) as f:
 		repos = f.readlines()
 	for repo_line in repos:
-		try:
-			repo = repo_line.strip().replace("/","-")
-			with open(HISTORY.format(repo), 'r') as hfile:
-				hjson = json.load(hfile)
-			with open(ACTUAL.format(repo), 'r') as afile:
-				ajson = json.load(afile)
-			hpeople = hjson["users"]
-			apeople = ajson["people"]
-			people = list(set(hpeople) & set(apeople))
-			H = hjson["matrix"]	  	# historical
-			T = ajson["requirements"] 	# technical
-			E = ajson["comments_matrix"]		# explicit
-			H = transform(H, hpeople, people)
-			T = transform(T, apeople, people)
-			E = transform(E, apeople, people)
-			print sparsity(H), sparsity(T), sparsity(E)
-			H2T = diff(H, T)
-			T2E = diff(T, E)
-			for i in range(len(people)):
-				if 0  in [H2T[i], T2E[i]]: continue
-				print people[i], int(H2T[i]*100), int(T2E[i]*100)
-			#H2T_norm = math.sqrt(sum(i**2 for i in H2T))
-			#T2E_norm = math.sqrt(sum(i**2 for i in T2E))
-			#print "H2T", H2T_norm, "T2E", T2E_norm
-		except Exception as e:
-			print "Error with ", repo, ".", e
+		repo = repo_line.strip().replace("/","-")
+		with open(HISTORY.format(repo), 'r') as hfile:
+			hjson = json.load(hfile)
+		with open(ACTUAL.format(repo), 'r') as afile:
+			ajson = json.load(afile)
+		hpeople = hjson["users"]
+		apeople = ajson["people"]
+		people = list(set(hpeople) & set(apeople))
+		H = hjson["matrix"]	  	# historical
+		T = ajson["requirements"] 	# technical
+		E = ajson["comments_matrix"]		# explicit
+		H = transform(H, hpeople, people)
+		T = transform(T, apeople, people)
+		E = transform(E, apeople, people)
+		#H2T = diff(flatten(H), flatten(T))
+		#T2E = diff(flatten(T), flatten(E))
+		H2T = get_cosine(flatten(H), flatten(T))	
+		T2E = get_cosine(flatten(T), flatten(E))
+		#for i in range(len(people)):
+		#	if 0  in [H2T[i], T2E[i]]: continue
+		#	print people[i], int(H2T[i]*100), int(T2E[i]*100)
+		def sq_norm(m):
+			return math.sqrt(sum(i**2 for i in m))
+		def average(m):
+			return float(sum(m))/len(m)
+		#H2T_norm = average(H2T)
+		#T2E_norm = average(T2E)
+		print ",".join([repo, str(H2T), str(T2E)])
 
 main()
